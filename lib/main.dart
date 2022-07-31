@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/bloc/news_bloc.dart';
 import 'package:news_app/news_item.dart';
+
+import 'input_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +20,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'News Page'),
+      home: BlocProvider(
+        create: (context) => NewsBloc(),
+        child: const MyHomePage(title: 'News Page'),
+      ),
     );
   }
 }
@@ -33,15 +40,32 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final inputText = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
       ),
-      body: NewsItem(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: TextField(
+              onChanged: (String value) {},
+              controller: inputText,
+              decoration: InputDecoration(
+                  hintText: 'Add event',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  fillColor: Colors.white,
+                  filled: true),
+            ),
+          ),
+          const NewsItem(),
+        ],
+      ),
+      floatingActionButton: InputButton(
+        controllerInput: inputText,
       ),
     );
   }
