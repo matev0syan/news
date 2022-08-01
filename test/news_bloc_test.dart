@@ -43,21 +43,24 @@ void main() {
       );
     },
   );
-  group('Event test', () {
-    blocTest<NewsBloc, NewsState>(
-      'DeleteNews test',
-      build: () {
-        return NewsBloc();
-      },
-      seed: () => NewsState.loaded(newsInfo: [newsInfo]),
-      act: (NewsBloc bloc) {
-        bloc.add(
-          NewsEvent.delete(newsInfo: newsInfo),
-        );
-      },
-      expect: () => {
-        const NewsState.loaded(newsInfo: []),
-      },
-    );
-  });
+  group(
+    'Event test',
+    () {
+      blocTest<NewsBloc, NewsState>(
+        'DeleteNews test',
+        build: () {
+          return NewsBloc();
+        },
+        seed: () => NewsState.loaded(newsInfo: [newsInfo]),
+        act: (NewsBloc bloc) {
+          bloc.add(
+            NewsEvent.delete(newsInfo: newsInfo),
+          );
+        },
+        expect: () => {
+          const NewsState.loaded(newsInfo: []),
+        },
+      );
+    },
+  );
 }
