@@ -1,36 +1,37 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/news_model.dart';
 
-part 'news_event.dart';
-part 'news_state.dart';
+import 'news_event.dart';
+import 'news_state.dart';
+
+
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  NewsBloc() : super(const NewsLoaded()) {
+  NewsBloc() : super( const NewsState.loaded(newsInfo: [])) {
     {
-      on<NewsAdd>(_onNewsAdd);
-      on<NewsDelete>(_onNewsDelete);
+      on<NewsAddEvent>(_onNewsAdd);
+      on<NewsDeleteEvent>(_onNewsDelete);
     }
   }
 
-  void _onNewsAdd(NewsAdd event, Emitter<NewsState> emit) {
+  void _onNewsAdd(NewsAddEvent event, Emitter<NewsState> emit) {
     final state = this.state;
-    if (state is NewsLoaded) {
+    if (state is NewsLoadedState) {
       emit(
-        NewsLoaded(
-          newsInfo: List<News>.from(state.newsInfo)..add(event.newsInfo),
+        NewsState.loaded(
+          newsInfo: List.from(state.newsInfo)..add(event.newsInfo),
         ),
       );
     }
   }
 
-  void _onNewsDelete(NewsDelete event, Emitter<NewsState> emit) {
+  void _onNewsDelete(NewsDeleteEvent event, Emitter<NewsState> emit) {
     final state = this.state;
-    if (state is NewsLoaded) {
+    if (state is NewsLoadedState) {
       List<News> newsInfo = state.newsInfo.where((newsInfo) {
         return newsInfo.id != event.newsInfo.id;
       }).toList();
-      emit(NewsLoaded(newsInfo: newsInfo));
+      emit(NewsState.loaded(newsInfo: newsInfo));
     }
   }
 }

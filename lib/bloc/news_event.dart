@@ -1,22 +1,9 @@
-part of 'news_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:news_app/models/news_model.dart';
+part 'news_event.freezed.dart';
 
-abstract class NewsEvent extends Equatable {
-  const NewsEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-class NewsAdd extends NewsEvent {
-  final News newsInfo;
-  const NewsAdd({required this.newsInfo});
-  @override
-  List<Object> get props => [newsInfo];
-}
-
-class NewsDelete extends NewsEvent {
-  final News newsInfo;
-  const NewsDelete({required this.newsInfo});
-  @override
-  List<Object> get props => [newsInfo];
+@freezed
+class NewsEvent with _$NewsEvent {
+  const factory NewsEvent.add({required News newsInfo}) = NewsAddEvent;
+  const factory NewsEvent.delete({required News newsInfo}) = NewsDeleteEvent;
 }

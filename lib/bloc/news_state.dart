@@ -1,18 +1,9 @@
-part of 'news_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:news_app/models/news_model.dart';
+part 'news_state.freezed.dart';
 
-abstract class NewsState extends Equatable {
-  const NewsState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class NewsInitial extends NewsState {}
-
-class NewsLoaded extends NewsState {
-  final List<News> newsInfo;
-  const NewsLoaded({this.newsInfo = const <News>[]});
-
-  @override
-  List<Object> get props => [newsInfo];
+@freezed
+class NewsState with _$NewsState {
+  const factory NewsState.initial() = NewsInitialState;
+  const factory NewsState.loaded({required List <News> newsInfo}) = NewsLoadedState;
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/bloc/news_bloc.dart';
+import 'package:news_app/bloc/news_event.dart';
+import 'package:news_app/bloc/news_state.dart';
 
 import 'models/news_model.dart';
 
@@ -17,7 +19,7 @@ class _NewsItemState extends State<NewsItem> {
     BuildContext context,
   ) {
     return BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
-      if (state is NewsLoaded) {
+      if (state is NewsLoadedState) {
         return ListView.builder(
             shrinkWrap: true,
             itemCount: state.newsInfo.length,
@@ -54,8 +56,8 @@ Card _newsCard(BuildContext context, News newsInfo, int index) {
                 IconButton(
                   icon: const Icon(Icons.delete_outline),
                   onPressed: () {
-                    context.read<NewsBloc>().add(NewsDelete(
-                        newsInfo: newsInfo.copyWith(isDeleted: true)));
+                    context.read<NewsBloc>().add(NewsEvent.delete(
+                        newsInfo: newsInfo));
                   },
                 ),
               ],
