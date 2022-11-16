@@ -13,7 +13,7 @@ class NewsItem extends StatefulWidget {
   State<NewsItem> createState() => _NewsItemState();
 }
 
-class _NewsItemState extends State<NewsItem> {
+class _NewsItemState extends State< NewsItem> {
   @override
   Widget build(
     BuildContext context,
@@ -26,7 +26,7 @@ class _NewsItemState extends State<NewsItem> {
             itemBuilder: (BuildContext context, int index) {
               return _newsCard(
                 context,
-                state.newsInfo[index],
+                state.ne wsInfo[index],
                 index,
               );
             });
