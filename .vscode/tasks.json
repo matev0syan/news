@@ -1,0 +1,46 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "command": "",
+    "args": [],
+    "tasks": [
+        {
+            "label": "get_packages",
+            "command": "${cwd}/scripts/get_all.sh",
+            "type": "shell",
+        },
+        {
+            "label": "pre_push_hook",
+            "command": "${cwd}/scripts/pre_push_hook.sh",
+            "type": "shell",
+        },
+        {
+            "label": "clean_all",
+            "command": "${cwd}/scripts/clean_all.sh",
+            "type": "shell",
+        },
+        {
+            "label": "setup_hooks",
+            "command": "${cwd}/scripts/setup_hooks.sh",
+            "type": "shell",
+        },
+        {
+            "label": "setup",
+            "command": "${cwd}/scripts/setup.sh",
+            "type": "shell",
+        },
+        {
+            "label": "generate_code",
+            "command": "${cwd}/scripts/gen_all.sh",
+            "type": "shell",
+        },
+        {
+            "label": "pre_launch",
+            "dependsOn": [
+                "get_packages",
+                "generate_code"
+            ]
+        }
+    ]
+}
